@@ -3,12 +3,19 @@
     padding: 0;
 }
 
+body {
+    position: relative;
+}
+
 .header {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border-bottom: 4px solid gray;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: aliceblue;
 }
 
 .header_maintext {
@@ -21,6 +28,7 @@
 }
 .main_contents {
     display: flex;
+    margin-bottom: 100px;
 }
 
 
@@ -46,6 +54,10 @@
     justify-content: center;
     align-items: center;
     width: 80%;
+    padding-left: 10%;
+    padding-right: 10%;
+    margin-top: 100px;
+    flex-direction: column;
 }
 
 .href {
@@ -91,6 +103,7 @@
     align-items: center;
     font-size: 12px;
     padding: 60px;
+    background-color: aliceblue;
 }
 
 .menu {
@@ -99,4 +112,25 @@
     left: 0;
     padding: 10px;
     font-size: 13px;
+}
+
+.index_text {
+    font-size: 20px;
+    margin-bottom: 15px;
+    
+}
+
+.medieum_text{
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.small_text {
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.important_text {
+    font-size: 14px;
+    margin-bottom: 15px;
 }
