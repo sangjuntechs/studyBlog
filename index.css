@@ -31,6 +31,7 @@ body {
     top: 0;
     z-index: 1;
     background-color: rgba(240, 248, 255, 0.95);
+    width: 100%;
 }
 
 .side_nav {
@@ -193,6 +194,7 @@ li {
     font-family: 'Sunflower', sans-serif;
     font-weight: 200;
     transition: color 0.4s;
+    text-align: center;
 }
 
 ul {
@@ -315,4 +317,18 @@ li:nth-child(4):hover {
     .menu {
         display: inherit;
     }
+}
+
+.texts {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:  .8s;
+ 
+}
+
+.appear {
+    opacity: 1;
+    transform: translateY(0px);
+    transition:  1.5s;
+
 }
