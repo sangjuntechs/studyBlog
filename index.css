@@ -276,7 +276,12 @@ li:nth-child(4):hover {
     transition: 1.0s;
     transform: translateY(20px);
 }
-
+.percent {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-family: 'Sunflower', sans-serif;
+}
 
 
 
