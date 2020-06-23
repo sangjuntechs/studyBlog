@@ -60,7 +60,7 @@ body {
     top: 0;
     z-index: 1;
     background-color: rgba(240, 248, 255, 0.95);
-    width: 100%;
+    width: 99vw;
 }
 
 .side_nav {
@@ -121,7 +121,10 @@ body {
     border-bottom: 5px solid dodgerblue;
     display: inline-block;
 }
-
+footer {
+    display: flex;
+    width: 100vw;
+}
 
 
 .footer_contents {
@@ -135,6 +138,7 @@ body {
     text-align: center;
     font-family: 'Sunflower', sans-serif;
     color: gray;
+    width: 100%;
 }
 
 .menu {
