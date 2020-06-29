@@ -31,7 +31,15 @@
         color: hotpink;
     }
 }
-
+.chapterIndex {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    margin-bottom: 50px;
+}
+.chapterName {
+    font-size: 50px;
+}
 body {
     position: relative;
     background-color: white;
@@ -41,7 +49,7 @@ body {
     margin-bottom: 10px;
     font-family: 'Odibee Sans', cursive;
     letter-spacing: 2px;
-
+    cursor: pointer;
 }
 
 .header_subtext {
@@ -61,7 +69,7 @@ body {
     z-index: 1;
     background-color: rgba(240, 248, 255, 0.95);
     width: 99vw;
-    cursor: pointer;
+    
 }
 
 .side_nav {
@@ -153,6 +161,7 @@ footer {
     transition: font-size 0.4s;
     font-family: 'Odibee Sans', cursive;
     letter-spacing: 2px;
+    z-index: 10;
 }
 
 .menu:hover {
