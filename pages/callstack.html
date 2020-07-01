@@ -39,37 +39,65 @@
         <div class="contents">
             <h1 class="index_text">
                 <div class="chapterIndex">
-                <div class="chapterName">호출스택?<h4 class="small_text">(call stack)</h4></div>
-                </div>
-
-                <div class="direction">
-                    콜스택 (callstack) Stack은 기본적으로 수직으로 쌓이며 선입후출 방식이다. 프링글스 통에 동전이 쌓인다고 생각하면
-                    쉽다.<br>
-                    자바스크립트의 호출 스택은 스택, 큐, 힙이 존재한다.
-                    <div class="animation_discript">
-                        <div class="stack_box">
-                            <div class="stack_ani">3</div>
-                            <div class="stack">2</div>
-                            <div class="stack">1</div>
-                        </div>
-                        <div class="animation_name">STACK</div>
+                    <div class="chapterName">호출스택?<h4 class="small_text">(call stack)</h4>
                     </div>
                 </div>
 
+                <div class="direction">
+                    <h1>1. 스택(Stack)이란?</h1> <br><br>
+                    자바스크립트의 엔진은 기본적으로 힙과 단일 호출스택으로 구성된 단일스레드 인터프리터이다.<br><br>
 
-                Code box
+                    호출스택은 주로 함수호출에 사용되며 단일이므로 함수가 한번에 하나씩 실행된다. 즉, <strong>'동기적'</strong>이라고 볼 수 있다.<br><br>
+
+                    호출스택에 대한 이해는 <strong>'비동기 프로그래밍'</strong>을 이해하는데 중요하다. 비동기는 동기의 반대라고 볼 수 있다.
+                    즉, 먼저 호출된 함수를 기다리지 않고 효율적으로 처리한다.<br><br>
+
+                    콜스택 (callstack) Stack은 기본적으로 수직으로 쌓이며 <strong>'후입선출'</strong> 방식이다. 즉, 나중에 들어온 것이 먼저 나간다.
+                    이러한 특징을 'LIFO' Last in First out 라고 한다.
+                     자바스크립트는 스택, 큐, 힙이 존재한다.
+
+                    <div class="animation_discript">
+                        <div class="stack_box">
+                            <div class="stack_list">
+                                <div class="stack_ani"></div>
+                                <div class="stack"></div>
+                                <div class="stack"></div>
+                            </div>
+                        </div>
+                        <div class="animation_name">STACK</div>
+                        <div class="status_push">push</div>
+                        <div class="status_pop">pop</div>
+
+                    </div>
+            
+                에니메이션으로 스택의 작동방식을 시각화 해보면 이러하다. 
+                이미 쌓여있는 스택에 '푸시'가 일어나면 쌓여있는 스택 위에 쌓이게 된다. 그리고 'pop' 내보내기가 일어나면 제일
+                마지막에 쌓인 스택이 튀어나가게 된다. <br><br>
+                
+                다음은 스택을 설명하는 코드이다.
+                
+
+
+                
                 <div class="codebox">
-                    const code = document.queryselector.'.codebox'<br>
-                    code.classlist.add('.code_add')
+                    function firstFunction(){ <br>
+                        &nbsp&nbsp  throw new Error('Stack Trace Error');<br>
+                      }<br><br>
+                      
+                      function secondFunction(){<br>
+                        &nbsp&nbsp firstFunction();<br>
+                      }<br><br>
+                      
+                      function thirdFunction(){<br>
+                        &nbsp&nbsp secondFunction();<br>
+                      }<br><br>
+                      
+                      thirdFunction();
                 </div>
+                <h1>2. 스택과 이벤트루프</h1>
+            </div>
             </h1>
-            <div class="text_section1">
-                
-
-            </div>
-            <div class="text_section2">
-                
-            </div>
+          
         </div>
     </div>
 
@@ -77,7 +105,9 @@
         <div class="menu_box">
             <div class="close_icon">Close</div>
             <ul>
-                <a href="./callstack.html"> <li> '호출스택'</li></a>
+                <a href="./callstack.html">
+                    <li> '호출스택'</li>
+                </a>
                 <li>'값 타입'과 '참조 타입'</li>
                 <li>'원시자료형'</li>
                 <li>목차4</li>

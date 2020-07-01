@@ -2,6 +2,28 @@
     margin: 0;
     padding: 0;
 }
+@keyframes stack_animation{
+    0% {
+        transform: translate(-60px, -80px);
+        background-color: rgb(201, 201, 37);
+    }
+    25% {
+        transform: translate(0px, -80px);
+        background-color: rgb(201, 201, 37);
+    }
+    50% {
+        transform: translate(0px, 0px);
+        background-color: rgb(201, 201, 37);
+    }
+    75% {
+        transform: translate(0px, -80px);
+    } 
+    100% {
+        transform: translate(60px, -80px);
+    }
+}
+
+
 @keyframes transform_animation{
     0% {
         transform: translateY(3px);
@@ -11,20 +33,6 @@
     } 
 }
 
-@keyframes stack_animation{
-    0% {
-        transform: translateY(0px);
-    }
-    70% {
-        transform: translateY(-90px);
-        opacity: 0.5;
-    } 
-    100% {
-        transform: translate(70px, -90px);
-        opacity: 0;
-
-    }
-}
 
 @keyframes colorChange{
     0% {
@@ -384,10 +392,12 @@ li:nth-child(4):hover {
 
 
 .codebox {
+    margin-top: 50px;
+    margin-bottom: 50px;
     font-size: 16px;
     border: 3px solid black;
     text-align: start;
-    font-weight: 500;
+    font-weight: 400;
     box-sizing: border-box;
     background-color: rgb(72, 65, 124);
     padding: 50px;
@@ -401,13 +411,14 @@ li:nth-child(4):hover {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin-bottom: 50px;
 }
 .stack_box {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border: 2px solid black;
+    border: 3px solid black;
     border-top: none;
     padding: 5px;
     width: 55px;
@@ -419,8 +430,8 @@ li:nth-child(4):hover {
     align-items: center;
     width: 50px;
     height: 50px;
-    background-color: rgb(21, 125, 230);
-    margin-top: 30px;
+    background-color: dodgerblue;
+    margin-top: 10px;
     border-radius: 10px;
 }
 .stack_ani {
@@ -429,16 +440,26 @@ li:nth-child(4):hover {
     align-items: center;
     width: 50px;
     height: 50px;
-    background-color: rgb(21, 125, 230);
-    margin-top: 30px;
-    animation: stack_animation 2s infinite  0.5s;
+    background-color: rgb(214, 34, 64);
+    margin-top: 10px;
     border-radius: 10px;
+    animation: stack_animation 3s infinite;
 }
 .animation_name {
     padding: 5px;
     font-size: 20px;
     font-weight: 600;
 }
+.status_push {
+    color: rgb(201, 201, 37);
+    font-weight: 700;
+}
+
+.status_pop {
+    color: rgb(214, 34, 64) ;
+    font-weight: 700;
+}
+
 
 @media all and (max-width:910px){
     .callback {
