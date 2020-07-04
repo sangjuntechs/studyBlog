@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+<head>
+    <link rel="stylesheet" href="/pages/stylesheet/callstack.css">
+    <link href="https://fonts.googleapis.com/css2?family=Odibee+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@500&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>juntechs blog</title>
+</head>
+
+<body>
+    <header class="header">
+        <div class="percent"></div>
+        <nav class="menu">MENU</nav>
+        <h1 class="header_maintext" onclick="location.href='../index.html'">JUNTECHS BLOG</h1>
+        <h3 class="header_subtext">javascript study blog</h3>
+    </header>
+
+    <div class="main_contents">
+        <div class="side_nav">
+            <div class="nav_contents">
+                <p4 class="index">목차</p4>
+                <a href="./callstack.html" class="callback">
+                    <p4 class="index_number">1.</p4> '호출스택'
+                </a>
+                <a href="./async.html" class="callback">
+                    <p4 class="index_number">2.</p4> 비동기 프로그래밍이란?
+                </a>
+                <a href="#" class="callback">
+                    <p4 class="index_number">3.</p4> '원시자료형'
+                </a>
+            </div>
+        </div>
+
+
+
+        <div class="contents">
+            <h1 class="index_text">
+                <div class="chapterIndex">
+                    <div class="chapterName">호출스택?<h4 class="small_text">(call stack)</h4>
+                    </div>
+                </div>
+
+                <div class="direction">
+                    <h1>1. 스택(Stack)이란?</h1> <br><br>
+                    자바스크립트의 엔진은 기본적으로 힙과 단일 호출스택으로 구성된 단일스레드 인터프리터이다.<br><br>
+
+                    호출스택은 주로 함수호출에 사용되며 단일이므로 함수가 한번에 하나씩 실행된다. 즉, <strong>'동기적'</strong>이라고 볼 수 있다.<br><br>
+
+                    호출스택에 대한 이해는 <strong>'비동기 프로그래밍'</strong>을 이해하는데 중요하다. 비동기는 동기의 반대라고 볼 수 있다.
+                    즉, 먼저 호출된 함수를 기다리지 않고 효율적으로 처리한다.<br><br>
+
+                    콜스택 (callstack) Stack은 기본적으로 수직으로 쌓이며 <strong>'후입선출'</strong> 방식이다. 즉, 나중에 들어온 것이 먼저 나간다.
+                    이러한 특징을 'LIFO' Last in First out 라고 한다.
+                    자바스크립트는 스택, 큐, 힙이 존재한다.
+
+                    <div class="animation_discript">
+                        <div class="stack_box">
+                            <div class="stack_list">
+                                <div class="stack_ani"></div>
+                                <div class="stack"></div>
+                                <div class="stack"></div>
+                            </div>
+                        </div>
+                        <div class="animation_name">STACK</div>
+                        <div class="status_push">push</div>
+                        <div class="status_pop">pop</div>
+
+                    </div>
+
+                    에니메이션으로 스택의 작동방식을 시각화 해보면 이러하다.
+                    이미 쌓여있는 스택에 '푸시'가 일어나면 쌓여있는 스택 위에 쌓이게 된다. 그리고 'pop' 내보내기가 일어나면 제일
+                    마지막에 쌓인 스택이 튀어나가게 된다. <br><br>
+
+                    <h2>다음은 스택을 설명하는 코드이다.</h2>
+
+
+
+
+                    <pre class='prettyprint'class="language-javascript">
+class Stack {
+    constructor() {
+        this._arr = [];
+    }
+    push(item) {
+        this._arr.push(item);
+    }
+    pop() {
+        return this._arr.pop();
+    }
+    peek() {
+        return this._arr[this._arr.length - 1];
+    }
+    }
+                          
+    const stack = new Stack();
+    stack.push(1);
+    stack.push(2);
+    stack.push(3);
+    stack.pop(); // 3
+                    </pre>
+                    배열로 스택을 설명할 수 있다. Stack의 Constructor에 배열을 생성하고 그 stack에 순차적으로 스택을 푸시한다.<br>
+                    순차적으로 1, 2, 3의 스택을 푸시하고 마지막에 stack.pop을 실행하면 Stack의 배열에서 제일 마지막에 쌓인 '3'이 나가게 된다.
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+
+                    <h1>2. 스택(Stack)과 함수</h1>
+                    <br>
+                    <br>
+                    생각해야 할 것이 있다. 스택은 함수의 '호출'에 관련된 것이다. 변수의 할당은 메모리에 된다. 그리고 이 메모리에 저장되는 것은 순서에 상관이 없다.
+                     이 것은 스택과
+                    차이가 있다. 함수의 호출 즉 이미 정의된 함수가 어딘가에서 'call' 될 때 호출될 때 발생하는 것이 스택이다. <br><br>
+                    
+                    만약 두 개의 함수가 있다. 함수 a는 b를 호출하고 함수 b는 a를 호출한다. 그렇다면 어떤 일이 발생할까?
+                    <pre class="prettyprint">
+function hello() {
+    bye()
+}
+function bye() {
+    hello()
+}
+
+hello();
+                    </pre>
+                    우선 이 코드는 hello(); 에 의해 hello가 실행될 것이다. function hello는 function bye를 호출할 것이고, 그 bye는 또
+                    다시 hello를 호출한다.
+                    이러한 코드가 작성된다면 'stack overflow'가 발생하게 될 것이다. 스택이 쌓일 수 있는 공간의 최대치를 초과하게 된다.
+                    그렇게 된다면 스택이 계속 차있게 되므로 제대로 된 실행을 할 수 없게 될 것이다.
+                    <br>
+                    <br>
+                    이러한 스택의 개념은 개발에 직접적인 엄청난 영향을 주진 않지만 이러한 컨셉을 알아 놓는다면 도움이 될 일이 반드시 있을
+                    것이라 생각한다. 자세한 내용은 MDN에서 확인해보자. <a href="https://developer.mozilla.org/en-US/docs/Glossary/Call_stack">MDN바로가기</a>
+                </div>
+            </h1>
+
+        </div>
+    </div>
+
+    <div class="menu_bar">
+        <div class="menu_box">
+            <div class="close_icon">Close</div>
+            <ul>
+                <a href="./callstack.html">
+                    <li> '호출스택'</li>
+                </a>
+                <a href="./async.html">
+                <li>비동기 프로그래밍이란?</li>
+                </a>
+                <li>'원시자료형'</li>
+            </ul>
+        </div>
+    </div>
+    <footer>
+        <div class="footer_contents">
+            Copyright 2020. sangjuntechs. All rights reserved.
+            <br>
+            www.github.sangjuntechs.com
+            <br>
+            <br>
+            devjun0421@gmail.com
+        </div>
+    </footer>
+
+    <script src="../javascript/scrollPercent.js"></script>
+    <script src="../javascript/slideMenu.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?autoload=true&skin=sunburst&lang=css">
+    </script>
+</body>
+
+
+</html>
