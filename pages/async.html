@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+<head>
+    <link rel="stylesheet" href="/pages/stylesheet/async.css">
+    <link href="https://fonts.googleapis.com/css2?family=Odibee+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@500&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>juntechs blog</title>
+</head>
+
+<body>
+    <header class="header">
+        <div class="percent"></div>
+        <nav class="menu">MENU</nav>
+        <h1 class="header_maintext" onclick="location.href='../index.html'">JUNTECHS BLOG</h1>
+        <h3 class="header_subtext">javascript study blog</h3>
+    </header>
+
+    <div class="main_contents">
+        <div class="side_nav">
+            <div class="nav_contents">
+                <p4 class="index">목차</p4>
+                <a href="./callstack.html" class="callback">
+                    <p4 class="index_number">1.</p4> '호출스택'
+                </a>
+                <a href="#" class="callback">
+                    <p4 class="index_number">2.</p4> 비동기 프로그래밍이란?
+                </a>
+                <a href="#" class="callback">
+                    <p4 class="index_number">3.</p4> '원시자료형'
+                </a>
+            </div>
+        </div>
+
+
+
+        <div class="contents">
+            <h1 class="index_text">
+                <div class="chapterIndex">
+                    <div class="chapterName">비동기 프로그래밍?<h4 class="small_text">( asynchronous programming )</h4>
+                    </div>
+                </div>
+            </h1>
+                <div class="direction">
+                   <h1>1. 비동기 프로그래밍이란 무엇인가?</h1>
+                   <br><br>
+                    <p>비동기 프로그래밍은 동기와 반대되는 의미이다. 일반적으로, 프로그램의 코드는 순차적으로 진행된다. <br>
+                    예를 들면 어떠한 함수가 실행될 때, 다음 함수가 실행될려면 그 뒤에 함수는 전 함수가 실행이 완료될 때 까지 기다려야한다.
+                    </p>
+                    <br>
+                    <h2>Blocking code?</h2>
+                    <br>
+                    <p>비동기 기법은 특히 웹 프로그래밍에서 매우 유용하다. 웹 앱이 브라우저에서 특정 코드를 실행하느라 브라우저에게 제어권을 <br>
+                    돌려주지 않으면 브라우저는 멈춘 것 처럼 보인다. 이러한 현상을 <strong>blocking</strong>이라 한다. <a href="https://developer.mozilla.org/ko/docs/Learn/JavaScript/Asynchronous/Concepts">mozilla MDN</a>의 코드를 참고하겠다.
+                    <br>    
+                </p>
+                    
+                    <pre class="prettyprint">
+const btn = document.querySelector('button');
+btn.addEventListener('click', () => {
+    let myDate;
+    for(let i = 0; i < 10000000; i++) {
+    let date = new Date();
+    myDate = date
+    }
+
+    console.log(myDate);
+
+    let pElem = document.createElement('p');
+    pElem.textContent = 'This is a newly-added paragraph.';
+    document.body.appendChild(pElem);
+});</pre>
+                    <br>
+                    <p>이 코드를 보면 셀렉트된 button을 클릭하면 날짜를 천 만번 계산하게 되는 코드가 있다. 2-7번째 줄 까지의 코드가 진행되어 콘솔에
+                        myDate가 출력되기 전까지 아래쪽 코드('This is a newly-added paragraph p태그에 생성')는 실행되지 않을 것이다. <strong>자바스크립트는 동기적</strong>이기 때문이다.
+                        <br><br>
+                        다음으로 두 번째 코드를 확인해보자. 역시 mozilla MDN의 예제 코드이다.
+                        <br>
+                    </p>
+                    
+                    <pre class="prettyprint">
+function expensiveOperation() {
+    for(let i = 0; i < 1000000; i++) {
+        ctx.fillStyle = 'rgba(0,0,255, 0.2)';
+        ctx.beginPath();
+        ctx.arc(random(0, canvas.width), random(0, canvas.height), 10, degToRad(0), degToRad(360), false);
+        ctx.fill()
+    }
+    }
+    
+    fillBtn.addEventListener('click', expensiveOperation);
+    
+    alertBtn.addEventListener('click', () =>
+    alert('You clicked me!')
+    );
+                    </pre>
+
+
+
+
+
+
+
+                </div>
+            
+
+        </div>
+    </div>
+
+    <div class="menu_bar">
+        <div class="menu_box">
+            <div class="close_icon">Close</div>
+            <ul>
+                <a href="./callstack.html">
+                    <li> '호출스택'</li>
+                </a>
+                <li>비동기 프로그래밍이란?</li>
+                <li>'원시자료형'</li>
+            </ul>
+        </div>
+    </div>
+    <footer>
+        <div class="footer_contents">
+            Copyright 2020. sangjuntechs. All rights reserved.
+            <br>
+            www.github.sangjuntechs.com
+            <br>
+            <br>
+            devjun0421@gmail.com
+        </div>
+    </footer>
+
+    <script src="../javascript/scrollPercent.js"></script>
+    <script src="../javascript/slideMenu.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?autoload=true&skin=sunburst&lang=css">
+    </script>
+</body>
+
+
+</html>
