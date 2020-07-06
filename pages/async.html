@@ -113,12 +113,21 @@ function expensiveOperation() {
                     <h2>Call back이란?</h2>
                     <br>
                     <p>자바스크립트 비동기 처리의 시작은 'call back'이라고 볼 수 있다. '콜백 지옥'이라는 말을 들어본 적이
-                        있을 것이다.
+                        있을 것이다. 콜백 함수의 뜻은 거창하지 않다. '나중에 다시 불러줘!'라는 뜻이다.
+                        콜백이 무조건 비동기적이진 않다. 다음의 예를 보자.
                     </p>
-                    
-
-
-
+                    <pre class="prettyprint">
+console.log('1')
+console.log('3')
+function printImmediately(print) {
+    print();
+}
+// Synchronous callback
+printImmediately(() => console.log('hello'))
+                    </pre>
+                    <br>
+                    이 코드의 진행을 확인해보자. 우선 'hoisting'에 의해 선언된 함수가 제일 위로 올라갈 것이다. 그 후 '1', '2'가
+                    차례대로 출력되고 'hello'가 출력될 것이다. 'printImmediately'는 callback 됐지만 동기적으로 실행된 것이다.
 
 
                 </div>
