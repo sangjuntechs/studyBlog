@@ -115,7 +115,7 @@ function expensiveOperation() {
                     비동기적으로 task들을 처리할 수 있을까?
                 </p>
                 <br><br><br><br>
-                <h2>Call back이란?</h2>
+                <h2>1. Call back이란?</h2>
                 <br>
                 <p>자바스크립트 비동기 처리의 시작은 'call back'이라고 볼 수 있다. '콜백 지옥'이라는 말을 들어본 적이
                     있을 것이다. 콜백 함수의 뜻은 거창하지 않다. '나중에 다시 불러줘!'라는 뜻이다.
@@ -242,7 +242,9 @@ userStorage.loginUser(
   }
 );
  </pre>
-            <p>
+            <p> 
+                <strong style="color: red;">(backend 서버가 없기 때문에 setTimeout으로 통신시간을
+                대체한다.)</strong> <br><br>
                 코드를 살펴보자. 우선 userStorage라는 클래스 안에 loginUser,getUserLevel
                 이라는 함수들이 선언되었다. 그리고 const userStorage에 새로운 UserStorage를
                 불러온다. <br>
@@ -261,13 +263,140 @@ userStorage.loginUser(
                 비동기 프로그래밍을 해야하는 것이다.
             </p>
             <br><br>
-            <h2>Promise란?</h2>
+            <h2>2. Promise란?</h2>
+            <br>
+            <p>
+               Promise 말 그대로 약속이란 뜻이다. 자바스크립트에서의 약속은 무엇일까?
+               그 것은 어떠한 task의 처리를 약속하는 것이다. promise로 처리된 어떠한 일은
+               그 행동이 완료될때 까지 비동기적으로 다른 함수들을 처리한다. 그리고 그
+               약속된 task는 문제없이 완료가 된다면 결과가 나올 것이고, 도중에 어떠한
+               오류가 나면 로직에 작성한 에러가 나오게 된다.
+               <br><br>
+               예를 들어보자 내가 미용실을 가는데 미용실은 오전 10시부터 문을 연다.
+               그렇다면 'Promise'된 미용실의 오픈 시간은 오전 10시이므로 내가 오전7시에
+               미용실을 간다면 나는 약속된 오전 10시까지 기다려야 할 것이다.
+               하지만 내가 오전 11시에 미용실을 가게 된다면 'Promise'된 시간인
+               오전 10시 이후이므로 기다림 없이 바로 미용실을 이용할 수 있을 것이다.
+               <br><br>
+               코드로 예제를 살펴보자.
+            </p>
+            <pre class="prettyprint">
+"use strict";
+
+const promise = new Promise((resolve, reject) => {
+  console.log("doing haircut..");
+  setTimeout(() => {
+    //resolve("success haircut!");
+    //reject(new Error('close hairshop..'))
+  }, 2500);
+});
+
+promise.then((value) => {
+  console.log(value);
+})
+.catch((error) => {
+  console.log(error);
+});
+            </pre>
+            <p style="color: red; font-weight: 600;">(마찬가지로 통신시간을 setTimeout으로 대체한다.)</p>
+            <br>
+            <p>코드를 살펴보면 Promise클래스를 constant promise에 할당하고
+                콜백함수로 resolve와 reject가 들어왔다. 보통 promise에서 처리되는
+                일은 네트워크나 데이터베이스에서 어떠한 값을 가져오는 등 무거운 일을
+                처리하게 되는데 이 예제에서는 백 엔드가 없으므로 setTimeout으로 2.5초정도
+                걸리는 task라고 가정한다. 
+                <br><br>
+                콘솔에 'doing haircut'이라는 로딩문구가 뜨고 2.5초 후 resolve. 즉 해결되거나 reject 어떠한
+                에러에 의해 처리가 안 될 것이다. 밑에서 6줄의 코드는 promise에 대한 처리인데
+                then은 처리 결과에 대한 value를 받아오고, catch는 에러에 대한 처리를 한다.
+                즉 resolve되면 then이 실행될 것이고, reject되면 catch가 실행될 것이다.
+                
+                만약 여기서 promise함수 후 다른 함수가 오면 어떻게 될까?
+                </p>
+                <pre class="prettyprint">
+"use strict";
+
+const promise = new Promise((resolve, reject) => {
+  console.log("doing haircut..");
+  setTimeout(() => {
+    resolve("success haircut!");
+    //reject(new Error('close hairshop..'))
+  }, 2500);
+});
+
+promise.then((value) => {
+  console.log(value);
+})
+.catch((error) => {
+  console.log(error);
+});
+
+console.log('doing another task')
+
+                </pre>
+                <p>여기서 보면 promise 오브젝트 실행 후 console.log('doing another task')
+                    가 들어왔다. 자바스크립트는 동기적이기 때문에 promise함수가 아니고 setTimeout이
+                    아니라 실제 2.5초가 걸리는 task였다면 저 일이 완료되기 전까지 'doing another task'
+                    는 콘솔에 출력되지 않았을 것이다. 하지만 promise로 비동기 처리를 하였기 때문에
+                    'doing another task'는 'promise'함수의 완료 여부에 상관 없이 바로 동작할 수
+                    있는 것이다. 이 것이 바로 <strong>'비동기 프로그래밍'</strong> 이다
+                </p>
+                <br><br>
+                <h2>Promise chaining?</h2>
+                <br>
+                <p>Promise chaining은 무엇일까? 전에 살펴본 callback chaining과 비슷하다.
+                    프로미스 안에서 또 새로운 promise오브젝트를 생성하는 것이다.
+                    <br>
+                    다음 코드를 살펴보자.
+                </p>
+                <pre class="prettyprint">
+const pay = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    //resolve(10000);
+    //reject(new Error('im not going this hairshop..'));
+  }, 3000);
+});
+
+pay
+  .then((payMoney) => payMoney - 1000)
+  .then((payMoney) => payMoney - 500)
+  .then((payMoney) => payMoney - 1000)
+  .then((payMoney) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        console.log(payMoney);
+        //resolve(payMoney - 500);
+        //reject(new Error("have no Money.."));
+      }, 3000);
+    });
+  })
+  .then((payMoney) => console.log(payMoney))
+  .catch((error) => {
+    console.log(error);
+  });                    
+                </pre>
+                <p>코드를 살펴보면 pay라는 프로미스 오브젝트에 또 새로운
+                    프로미스 클래스가 리턴되고 중첩되는 then이 있다. 즉 pay 오브젝트에 새로운 프로미스와 then들이 체이닝 된 것이다.
+                    만약 pay오브젝트와 리턴된 프로미스 둘 다 resolve가 된다면 콘솔에는 
+                    모든 then들을 처리한뒤 6초뒤에 모든
+                    계산 결과값인 7000이 출력될 것이다.
+                    <br><br>
+                     만약 pay 오브젝트가 이미 reject된 다면 어떻게
+                    될까? 뒤에 있는 Promise는 then에 대한 실행함수이니 실행 되지 않고 catch로
+                    넘어가 3초 뒤에 'i'm not going this hairshop'이 콘솔에러에 출력될 것이다.
+                    pay에 대해 Promise는 체이닝 되었다는 것을 생각하면서 pay 오브젝트는
+                    resolve, 새롭게 리턴된 Promise는 reject가 된다면 어떠한 결과가 나올까?
+                    <br><br>
+                    7500이 출력되고 then에 의해 체이닝된 Promise에 대한 에러인 "have no Money.."가 6초 뒤에
+                    출력이 될 것이다. 즉 pay의 실행이 완료되고 새로운 Promise에 대한 작업도
+                    중첩되어 일어나는 것이다. 이 것이 Promise의 Chaning이다.
+                </p>
             </div>
 
 
         </div>
     </div>
-
+    <nav class="next_page">Next Page</nav>
     <div class="menu_bar">
         <div class="menu_box">
             <div class="close_icon">Close</div>
@@ -296,6 +425,7 @@ userStorage.loginUser(
     <script
         src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?autoload=true&skin=sunburst&lang=css">
     </script>
+    <script src="../javascript/nextPage.js"></script>
 </body>
 
 

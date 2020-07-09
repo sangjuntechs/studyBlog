@@ -103,7 +103,7 @@ body {
     top: 0;
     z-index: 1;
     background-color: rgba(240, 248, 255, 0.95);
-    width: 99vw;
+    width: 100%;
     
 }
 
@@ -463,6 +463,28 @@ li:nth-child(4):hover {
 .status_pop {
     color: rgb(214, 34, 64) ;
     font-weight: 700;
+}
+.next_page {
+    display: absolute;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 1.5rem;
+    margin: 1.5rem;
+    background-color: rgb(0, 0, 0);
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+    transform: translateY(100px);
+    transition: 0.8s;
+    cursor: pointer;
+}
+.next_page:hover {
+    background-color: rgba(0, 0, 0, 0.658);
+}
+
+.activeNext {
+    transform: translateY(0px);
 }
 
 
