@@ -39,8 +39,78 @@
         <div class="contents">
            
             <div class="direction">
-                <h1>Async & await?</h1>
-                <p>async await 자바스크립트로 개발을 해 보았으면 한 번쯤은 보았을것이다.</p>
+                <h1>3. Async & await?</h1>
+                <br><br>
+                <p>async await 자바스크립트로 개발을 해 보았으면 한 번쯤은 보았을것이다. 우선 이러한
+                    async, await 함수는 Promise를 더욱 간단하게 쓸 수 있게 해준다. then의 체이닝을
+                    최소화 할 수 있다는 의미로 필자는 해석했다. <a href="https://developer.mozilla.org/ko/docs/Learn/JavaScript/Asynchronous/Async_await">
+                    Mozilla MDN</a>의 예제를 살펴보자.
+                </p>
+                <br>
+                <h2>How to write clean promise code?</h2>
+                <br>
+                <h3 style="color: red;">Before async, await</h3>
+                <pre class="prettyprint">
+fetch('coffee.jpg')
+.then(response => response.blob())
+.then(myBlob => {
+  let objectURL = URL.createObjectURL(myBlob);
+  let image = document.createElement('img');
+  image.src = objectURL;
+  document.body.appendChild(image);
+})
+.catch(e => {
+  console.log('There has been a problem with your fetch operation: ' + e.message);
+});                    
+                </pre>
+                <p>async와 await을 사용하기 전의 코드이다. 전에 살펴본 Promise를 사용해서 잘 정리했지만 연속적인
+                    promise 체이닝으로 가독성이 떨어지게 된다. 이러한 코드를 우리는 async await로 더욱 예쁘게
+                    코드를 정리할 수 있다.
+                </p>
+                <br>
+                <h3 style="color: red;">after async await</h3>
+                <pre class="prettyprint">
+async function myFetch() {
+  let response = await fetch('coffee.jpg');
+  let myBlob = await response.blob();
+
+  let objectURL = URL.createObjectURL(myBlob);
+  let image = document.createElement('img');
+  image.src = objectURL;
+  document.body.appendChild(image);
+}
+
+myFetch()
+.catch(e => {
+  console.log('There has been a problem with your fetch operation: ' + e.message);
+});                    
+                </pre>
+                <p>async 비동기 함수를 사용하기 위해선 함수의 앞에 꼭 'async'를 선언해
+                    주어야 한다. await는 async로 선언된 함수블럭 스코프 안에서만 사용이
+                    가능하다.
+                    <br>
+                    코드를 살펴보니 더이상 then을 찾아볼 수 없게 되었다. async 키워드 자체가
+                    함수를 Promise로 바꾸었기 때문에 promise와 await의 하이브리드 접근 방식을
+                    코드를 리팩토링 할 수 있다. 또한 then블록을 개개별로 체이닝 하는게 아니라
+                    async 키워드로 함수 내부의 블럭으로 가져와 더욱 유연한 코딩이 가능하다.
+                    예제를 확인해보자
+                </p>
+                <pre class="prettyprint">
+async function myFetch() {
+  let response = await fetch('coffee.jpg');
+  return await response.blob();
+}
+
+myFetch().then((blob) => {
+  let objectURL = URL.createObjectURL(blob);
+  let image = document.createElement('img');
+  image.src = objectURL;
+  document.body.appendChild(image);
+}).catch(e => console.log(e));                    
+                </pre>
+                <p>async를 사용하지 않았다면 myFetch의 then을 개개별로
+                    일일이 체이닝 해야했을 것이다.
+                </p>
             </div>
 
 
