@@ -280,10 +280,10 @@ pre {
     position: fixed;
     top: 0;
     left: 0;
-    padding: 50px;
+    padding: 10px;
     z-index: 3;
-    width: 30vw;
-    height: 90vh;
+    width: 45vw;
+    height: 100vh;
     background-color: rgba(0, 0, 0, 0.85);
     left: -60vw;
     transition: 0.5s linear;
@@ -291,14 +291,14 @@ pre {
 
 li {
     all: unset;
-    padding: 10px;
-    font-weight: 600;
+    padding: 8px;
+    font-weight: 300;
     color: white;
     cursor: pointer;
     font-family: 'Sunflower', sans-serif;
-    font-weight: 200;
     transition: color 0.4s;
     text-align: center;
+    font-size: 14px;
 }
 
 ul {
@@ -529,6 +529,9 @@ a {
     .index_font {
         font-size: 40px;
     }
+    .chapterName {
+        font-size: 40px;
+    }
 }
 
 @media all and (min-width:910px) {
@@ -556,6 +559,9 @@ a {
     }
     .percent {
         font-size: 13px;
+    }
+    .chapterName {
+        font-size: 35px;
     }
 }
 
