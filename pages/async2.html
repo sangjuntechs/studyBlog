@@ -285,10 +285,13 @@ async function getGender() {
 }                  
 
 function fetchAllInfo() {
-    return Promise.all([getName(), getGender()]).then((info) => info.join(" and gender is "));
-  }
-  
-  fetchAllInfo().then(console.log);
+  return Promise.all([getName(), getGender()]).then((info) => {
+    const infomation = info
+    return (`your name is ${infomation.slice(0,1)} and gender is ${infomation.slice(1,2)}`)
+  })
+}
+
+fetchAllInfo().then(console.log);
                 </pre>
                 <p>
                     이렇게 Promise.all api를 사용하니 더욱 간편하게 코드가

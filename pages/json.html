@@ -44,9 +44,146 @@
                 </div>
             </h1>
             <div class="direction">
-                <h2>서버통신과 JSON</h2>
+                <h2>1. 서버통신과 JSON</h2>
                 <br>
-                <p>json은 서버와의 통신을 위해 필요한 개념이다.</p>
+                <p>json은 서버와의 통신을 위해 필요한 개념이다. 우선 브라우저에
+                    보이는 client는 어떻게 서버와 통신을 할까? 'HTTP' Hypertext
+                    transfer Protocol의 약자인 HTTP는 어떻게 하면 이 하이퍼택스트들을
+                    서로 주고받을 수 있는지를 약속한 프로토콜이다. 
+                    <br>client는 서버에 정보를
+                    'request'요청하고 서버 및 데이터베이스는 그 응답에 맞춰 알맞는 컨텐츠를
+                    client에게 'response'응답하게 된다.
+                </p>
+                <br>
+                <br>
+                <h2>2. What is AJAX?</h2>
+                <br>
+                <p>
+                    AJAX란 'Asynchronous Javascript and XML'의 약어이다. 이 것은
+                    동적으로 서버에게 정보를 가져올 수 있는 기술을 의미한다. 대표적으로
+                    'XHR' XMLHttpRequest가 있는데 브라우저 api로써 간단하게 서버에서 정보를
+                    요청하고 가져올 수 있다. 최근 추가된 'fetch() API' 가 있다.
+                    <br>
+                    <br>
+                    그렇다면 XML로 서버와 통신을 하는데 왜 JSON이 필요한가?
+                    XML은 가독성도 떨어지고 복잡하다. 그래서 요즘 서버통신에 많이 쓰이는
+                    것이 바로 'JSON'이다. JavaScript Object Notation의 약어인 JSON은
+                    직관적이고 구조화된 마치 'Object'같은 데이터 포멧이다. JSON도 마찬가지로
+                    KEY와 VALUE로 구분되어있다. 텍스트 기반이기에 아주 가벼운 정보이다.
+                    <br>
+                    <br>
+                    또한 언어의 제약 없이 json의 object로 parsing하는 기능을 제공하기 때문에
+                    언어나 플랫폼에 대한 제약도 거의 없다고 볼 수 있다. 이러한 이유로 우리는
+                    서버와의 통신을 위해 JSON을 반드시 알아야 한다고 볼 수 있다.
+                </p>
+                <br>
+                <br>
+                <h2>3. JSON의 활용</h2>
+                <br>
+                <p>
+                    여기서 우리는 생각해야 한다. JSON을 활용할려면 어떡해야 할까? 우선 
+                    client에서 받아오는 object를 'serialize' 즉, JSON화 할 수 있어야 할 것이고
+                    (그래야 데이터베이스 및 서버에 JSON형식으로 저장이 가능할 것이다.) 또 데이터베이스와 서버
+                    에서 받아온 json을 client는 object로 parsing할 수 있어야 할 것이다.
+                    <br>
+                    <br>
+                    다음 예제를 보면서 어떻게 json을 object로 parsing하고 object를 JSON으로
+                    serialize를 하는지 알아보자.
+                </p>
+                <br>
+                <br>
+                <h3>Object to JSON</h3>
+                <pre class="prettyprint">
+"use strict";
+
+let json = JSON.stringify();
+
+const shoes = {
+  name: "converse",
+  color: "red",
+  size: "255",
+  madeDate: new Date(),
+  price: null,
+  discription: () => {
+    console.log(`${name} is very good shoes`);
+  },
+};
+
+json = JSON.stringify(shoes);
+console.log(json);                    
+                </pre>
+                <p>
+                    이 코드를 살펴보자. 우선 shoes라는 Object가 존재한다. 안에는
+                    각각의 정보들과 discription이라는 하나의 함수가 존재한다. 이 것을
+                    json으로 stringify하면 어떠한 결과가 나올까?
+                </p>
+                <div class="discript_image">
+                    <img class="json_image1" src="../images/json캡처.PNG" alt="json이미지">
+                </div>
+                <p>
+                    이렇게 콘솔에 json 형식으로 stringify되어 출력되는 것을 볼 수 있다.
+                    출력된 내용을 확인해 보면 다 출력됐지만 함수는 출력이 되지 않았다.
+                    json형식은 함수를 지원하지 않기 때문이다. 이렇게 JSON은 알맞는 규격이
+                    있기 때문에 규격에 맞게 정보를 서로 주고받을 수 있는 것이다.
+                    <br>
+                    <br>
+                    stringify에는 replacer이라는 콜백함수가 하나 있는데 원하는 정보만 json
+                    으로 만들 수 있다. 예를 들면 shoes에서 name만 가져오고 싶다면
+                    <pre class="prettyprint">
+json = JSON.stringify(shoes, ['name']);
+                    </pre>
+                    이 코드를 작성하게 되면 shoes객체의 name만 json으로 변환될 것이다.
+                    그럼 이제 JSON을 Object로 Parsing하는 것을 알아보자.
+                </p>
+                <br>
+                <br>
+                <h3>JSON to Object</h3>
+                <pre class="prettyprint">
+"use strict";
+
+let json = JSON.stringify();
+
+const shoes = {
+  name: "converse",
+  color: "red",
+  size: "255",
+  madeDate: new Date(),
+  price: null,
+  discription: () => {
+    console.log(`${name} is very good shoes`);
+  },
+};
+
+json = JSON.stringify(shoes);
+
+const objShoes = JSON.parse(json);
+console.log(objShoes);
+                </pre>
+                <p>
+                    이미 위에서 만든 shoes를 json화 했었다. 이 것을 다시 object로
+                    변환하기 위해 우리는 JSON.parse를 사용했다. 이렇게 간단하게 우리는
+                    json형태의 파일을 Object로 변환할 수 있다. 콘솔로그를 살펴보자.
+                </p>
+                <div class="discript_image">
+                    <img class="json_image2" src="../images/jsonToObject.PNG" alt="json이미지2">
+                </div>
+                <p>stringify 됐던 Object가 다시 Object로 변한것을 확인할 수 있다.
+                    우리는 이렇게 받아온 json형식의 파일을 다시 object로 변환하여 client
+                    에게 뿌릴 수 있고 client로 부터 받은 object정보를 stringify해서 서버에
+                    재전송 하고 저장할 수 있는 것이다.
+                    <br>
+                    그런데 object로 변환했는데 함수가 없는 것은 왜일까? stringify될 때 함수는 포함이
+                    되어있지 않았는데 그 것을 parsing 했으니 없는 것이다.
+                    <br>
+                    <br>
+                    이렇게 간단하게 JSON에 대하여 알아보았다. JSON은 동적인 정보를
+                    client와 server끼리 주고받는 아주 중요한 개념이기 때문에 무조건
+                    알아놓는 것이 중요할 것 같다. 왜 필요한지 object와 json을 서로 파싱하고
+                    시리얼라이즈 하는 것이 어떤 의미인지 생각하며 배우면 훨씬 좋을 것 같다고
+                    생각한다.
+                </p>
+
+
             </div>
 
 

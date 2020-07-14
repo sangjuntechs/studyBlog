@@ -499,12 +499,36 @@ li:nth-child(4):hover {
     background-color: rgba(0, 0, 0, 0.658);
 }
 
+.discript_image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
 .activeNext {
     transform: translateY(0px);
 }
 a {
     text-align: center;
 }
+
+.discript_image {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.json_image1 {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 2px 4px 8px gray;
+}
+.json_image2 {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 2px 4px 8px gray;
+}
+
 
 @media all and (max-width:910px){
     .callback {
@@ -521,6 +545,12 @@ a {
     }
     .menu {
         display: none;
+    }
+    .json_image1 {
+        width: 70%;
+    }
+    .json_image2 {
+        width: 70%;
     }
    
 }
