@@ -296,7 +296,9 @@ a {
     cursor: pointer;
     transition: color 0.5s;
 }
-
+a:hover {
+    color: black;
+}
 
 
 li:nth-child(1):hover {
