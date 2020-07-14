@@ -285,6 +285,9 @@ ul {
     color: black;
 }
 
+.menu_selector {
+    color: #ffffff;
+}
 a {
     all: unset;
     color: dodgerblue;
